@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:ecommercebonito/screens/screens_index.dart';
 import 'package:ecommercebonito/shared/components/style_bar.dart';
 import 'package:flutter/material.dart';
@@ -76,6 +78,34 @@ class SignInScreen extends StatelessWidget {
                             color: kDetailColor,
                           ),
                     const VerticalSpacerBox(size: SpacerSize.large),
+                     SizedBox(
+                      width: size.width,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          controller.errorMessage != null
+                              ? Text(
+                                  controller.errorMessage!,
+                                  style: kCaption1.copyWith(color: kErrorColor)
+                                )
+                              : const SizedBox(),
+                          const VerticalSpacerBox(size: SpacerSize.small),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text('Não possui conta?'),
+                              CustomTextButton(
+                                title: 'Crie aqui',
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, Screens.register);
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -104,34 +134,7 @@ class SignInScreen extends StatelessWidget {
                             iconSize: 38)
                       ],
                     ),
-                    SizedBox(
-                      width: size.width,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          controller.errorMessage != null
-                              ? Text(
-                                  controller.errorMessage!,
-                                  style: kCaption1,
-                                )
-                              : const SizedBox(),
-                          const VerticalSpacerBox(size: SpacerSize.small),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text('Não possui conta?'),
-                              CustomTextButton(
-                                title: 'Crie aqui',
-                                onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, Screens.register);
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                   
                   ],
                 ),
               ),

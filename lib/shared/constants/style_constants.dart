@@ -67,9 +67,9 @@ const TextStyle kBody3 = TextStyle(
   fontSize: 16,
 );
 const TextStyle kCaption1 = TextStyle(
-  fontSize: 14,
+  fontSize: 18,
   fontWeight: FontWeight.w900,
 );
 const TextStyle kCaption2 = TextStyle(
-  fontSize: 14,
+  fontSize: 18,
 );

@@ -22,26 +22,42 @@ class SignInController with ChangeNotifier {
   TextEditingController get emailController => _emailController;
   TextEditingController get passwordController => _passwordController;
   var status = SignInStatus.idle;
-  void signIn(BuildContext context) {
+  void signIn(BuildContext context) async {
     try {
-      _repository.signIn(
+       status = SignInStatus.loading;
+      notifyListeners();
+
+      var succ = await _repository.signIn(
         email: _emailController.text,
         password: _passwordController.text,
-        onSuccess: () {
-          status = SignInStatus.done;
-          Navigator.pushReplacementNamed(context, Screens.home);
-        },
       );
+       if (succ == true) {
+          status = SignInStatus.done;
+        notifyListeners();
+        // ignore: use_build_context_synchronously
+        Navigator.pushReplacementNamed(
+            context, Screens.home);
+        }
+        if (!succ) {
+        
+        status = SignInStatus.error;
+        setErrorMessage(
+            'Credenciais inválidas, verifique seus dados');
+        notifyListeners();
+      }
+      notifyListeners();
     } catch (e) {
       status = SignInStatus.error;
-      setErrorMessage(e.toString());
+      setErrorMessage(
+          'Credenciais inválidas verifique seus dados');
+      notifyListeners();
     }
   }
 
-  void setErrorMessage(String value) {
+  void setErrorMessage(String value) async {
     errorMessage = value;
     notifyListeners();
-    Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     errorMessage = null;
     notifyListeners();
   }
