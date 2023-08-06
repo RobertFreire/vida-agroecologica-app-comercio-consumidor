@@ -22,7 +22,7 @@ class SignInRepository {
       );
       if (response.statusCode == 200) {
         if (response.data['user']['papel'].toString() ==
-            'Consumidor') {
+            'Produtor') {
           log('User é um Consumidor');
           if (await userStorage.userHasCredentials()) {
             await userStorage.clearUserCredentials();
